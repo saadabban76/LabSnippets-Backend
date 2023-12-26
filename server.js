@@ -8,8 +8,10 @@ const mongoose = require('mongoose');
 const server = http.createServer(express);
 const io = new socketIO.Server(server, {
     cors: {
-        origin: "*",
-    }
+        origin: 'https://labsnippets.onrender.com',
+        methods: ['GET', 'POST'],
+    }, 
+    // secure: true,
 });
 
 const MONGODB_URL = "mongodb+srv://saad76:EKrYWkWPUSQHTLLn@cluster0.wgmqb0q.mongodb.net/";
