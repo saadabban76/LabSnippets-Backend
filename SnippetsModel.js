@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const snippetSchema = new mongoose.Schema({
     userId: String,
@@ -8,4 +8,4 @@ const snippetSchema = new mongoose.Schema({
 
 const SnippetModel = mongoose.models.Snippet || mongoose.model('Snippet', snippetSchema);
 
-export default SnippetModel;
+module.exports = SnippetModel;

@@ -1,9 +1,9 @@
 // server.js
-import express from 'express';
-import http from 'http';
-import socketIO from 'socket.io';
-import SnippetModel from './SnippetsModel';
-import mongoose from 'mongoose';
+const express = require('express');
+const http = require('http');
+const socketIO = require('socket.io');
+const SnippetModel = './SnippetsModel';
+const mongoose = require('mongoose');
 
 const app = express();
 
@@ -24,11 +24,11 @@ if (MONGODB_URL === undefined) {
 }
 
 
-io.on('connection', (socket: any) => {
+io.on('connection', (socket) => {
     console.log('A user connected : ', socket.id);
 
     // Listen for chat snippets
-    socket.on('snippets', async (snippet: any, room: any) => {
+    socket.on('snippets', async (snippet, room) => {
         // Broadcast the snippets to all connected members
         if (room == "") {
             const newSnippet = new SnippetModel({
@@ -57,7 +57,7 @@ io.on('connection', (socket: any) => {
     });
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 console.log("port : ", PORT);
 
