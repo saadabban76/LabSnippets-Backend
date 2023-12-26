@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const server = http.createServer(express);
 const io = new socketIO.Server(server, {
     cors: {
-        origin: 'https://labsnippets.onrender.com',
+        origin: ['https://labsnippets.onrender.com', 'http://localhost:3000/'],
         methods: ['GET', 'POST'],
     }, 
     // secure: true,
