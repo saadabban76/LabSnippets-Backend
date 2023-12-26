@@ -1,13 +1,11 @@
 // server.js
-const express = require('express');
+const express = require('express')();
 const http = require('http');
 const socketIO = require('socket.io');
 const SnippetModel = './SnippetsModel';
 const mongoose = require('mongoose');
 
-const app = express();
-
-const server = http.createServer(app);
+const server = http.createServer(express);
 const io = new socketIO.Server(server, {
     cors: {
         origin: "*",
@@ -21,11 +19,13 @@ if (MONGODB_URL === undefined) {
     console.log("invalid mogodburl : ", MONGODB_URL);
 } else {
     mongoose.connect(MONGODB_URL, { dbName: "LabSnippets" });
+    console.log("mongodb conencted with id : ", MONGODB_URL);
 }
 
 
 io.on('connection', (socket) => {
     console.log('A user connected : ', socket.id);
+    console.log("working now ? ");
 
     // Listen for chat snippets
     socket.on('snippets', async (snippet, room) => {
