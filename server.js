@@ -2,7 +2,7 @@
 const express = require('express')();
 const http = require('http');
 const socketIO = require('socket.io');
-const SnippetModel = './SnippetsModel';
+const SnippetModel = require('./SnippetsModel');
 const mongoose = require('mongoose');
 
 const server = http.createServer(express);
@@ -10,7 +10,7 @@ const io = new socketIO.Server(server, {
     cors: {
         origin: "*",
         methods: ['GET', 'POST'],
-    }, 
+    },
     // secure: true,
 });
 
@@ -20,7 +20,9 @@ if (MONGODB_URL === undefined) {
     // window.alert("Invalid Mongodb url !");
     console.log("invalid mogodburl : ", MONGODB_URL);
 } else {
-    mongoose.connect(MONGODB_URL, { dbName: "LabSnippets" });
+    mongoose.connect(MONGODB_URL, {
+        dbName: "LabSnippets"
+    });
     console.log("mongodb conencted with id : ", MONGODB_URL);
 }
 
@@ -39,7 +41,10 @@ io.on('connection', (socket) => {
             });
 
             try {
-                await newSnippet.save();
+                await newSnippet.save({
+                    w: "majority",
+                    wtimeout: 5000
+                }); // Set the timeout to 5 seconds                
                 console.log("snippet succesfully saved in db !");
             } catch (err) {
                 console.log('Error saving Snippets to Database !', err);
