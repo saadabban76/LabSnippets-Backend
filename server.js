@@ -37,7 +37,7 @@ io.on('connection', (socket) => {
         if (room == "") {
             const newSnippet = new SnippetModel({
                 snippet: snippet.snippet,
-                user: socket.userId
+                userId: socket.userId
             });
 
             try {
